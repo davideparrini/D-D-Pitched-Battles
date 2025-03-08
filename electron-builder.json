@@ -1,0 +1,19 @@
+{
+    "appId": "com.distra.dnd-pitched-battles",
+    "files": ["dist/dist-react", "dist/dist-be"],
+    "icon": "./icon.png",
+    "directories": {
+        "output": "release"
+    },
+    "mac": {
+        "target":"dmg"
+    },
+    "linux": {
+        "target":"AppImage",
+        "category": "Utility"
+    },
+    "win":{
+        "target":["portable", "msi"]
+    }
+    
+}

@@ -8,4 +8,8 @@ export default defineConfig({
     build: {
         outDir: 'dist/dist-react',
     },
+    server: {
+        port: 8888,
+        strictPort: true
+    }
 });

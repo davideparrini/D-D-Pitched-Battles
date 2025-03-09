@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
-      "target": "ESNext",
-      "module": "NodeNext",
-      "outDir": "../../dist/dist-be",
-      "strict": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "skipLibCheck": true,
-      "resolveJsonModule": true,
-      "sourceMap": true
+        "target": "ESNext",
+        "types": ["../../types.d.ts"],
+        "module": "NodeNext",
+        "outDir": "../../dist/dist-be",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "noImplicitAny": false
     }
 }
-  

@@ -3,7 +3,7 @@ import { getUIPath } from './path-resolver.js';
 import { pathToFileURL } from 'url';
 
 export function isDev(): boolean {
-  return process.env.NODE_ENV === 'development';
+    return process.env.NODE_ENV === 'development';
 }
 
 // export function ipcMainHandle<Key extends keyof EventPayloadMapping>(
@@ -35,10 +35,10 @@ export function isDev(): boolean {
 // }
 
 export function validateEventFrame(frame: WebFrameMain) {
-  if (isDev() && new URL(frame.url).host === 'localhost:5123') {
-    return;
-  }
-  if (frame.url !== pathToFileURL(getUIPath()).toString()) {
-    throw new Error('Malicious event');
-  }
+    if (isDev() && new URL(frame.url).host === 'localhost:5123') {
+        return;
+    }
+    if (frame.url !== pathToFileURL(getUIPath()).toString()) {
+        throw new Error('Malicious event');
+    }
 }

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback,  useState } from "react";
 import { Casella, CellConfig } from "../Casella/Casella";
 
 // Configurazione della griglia intera
@@ -17,13 +17,14 @@ interface GameGridProps {
   export const GameGrid: React.FC<GameGridProps> = ({ config }) => {
 
     const [grid, setGrid] = useState(config.cells);
-    const rows = useMemo(()=>config.rows,[]);
-    const columns = useMemo(()=>config.columns,[]);
+    // const rows = useMemo(()=>config.rows,[]);
+    // const columns = useMemo(()=>config.columns,[]);
 
     const handleChangeOccupation = useCallback((row: number, col: number, newOccupied: boolean) => {
       const updatedBoard = [...config.cells]; // Creiamo una copia dell'array
       updatedBoard[row][col].occupied = newOccupied; // Modifica l'occupazione della cella
       setGrid(updatedBoard)
+      console.log(grid)
     },[config.cells]);
 
 

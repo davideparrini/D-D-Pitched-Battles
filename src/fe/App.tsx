@@ -1,22 +1,22 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import './App.css';
 import { GameGrid, GridConfig } from './components/Griglia/Griglia';
 import { TerrainEnum } from './components/Casella/CasellaType';
-import { Casella, CellConfig } from './components/Casella/Casella';
+// import { Casella, CellConfig } from './components/Casella/Casella';
 
 
 // Funzione che crea una matrice 4x4 con il terreno specificato
-function createTerrainMatrix(terrain: TerrainEnum): TerrainEnum[][] {
-  const matrix: TerrainEnum[][] = [];
-  for (let i = 0; i < 4; i++) {
-    const row: TerrainEnum[] = [];
-    for (let j = 0; j < 4; j++) {
-      row.push(terrain);
-    }
-    matrix.push(row);
-  }
-  return matrix;
-}
+// function createTerrainMatrix(terrain: TerrainEnum): TerrainEnum[][] {
+//   const matrix: TerrainEnum[][] = [];
+//   for (let i = 0; i < 4; i++) {
+//     const row: TerrainEnum[] = [];
+//     for (let j = 0; j < 4; j++) {
+//       row.push(terrain);
+//     }
+//     matrix.push(row);
+//   }
+//   return matrix;
+// }
 
 interface Cell {
   occupied: boolean;
@@ -125,10 +125,10 @@ const gridConfig: GridConfig = {
   cells: create()
 };
 
-const cell : CellConfig =  {occupied: false, terrainMatrix: [[TerrainEnum.TERRA, TerrainEnum.ACQUA_BASSA, TerrainEnum.FORESTA, TerrainEnum.ROCCIA], [TerrainEnum.SABBIA, TerrainEnum.FORESTA, TerrainEnum.TERRA, TerrainEnum.FORESTA], [TerrainEnum.SABBIA, TerrainEnum.ACQUA_BASSA, TerrainEnum.ROCCIA, TerrainEnum.TERRA], [TerrainEnum.SABBIA, TerrainEnum.FORESTA, TerrainEnum.TERRA, TerrainEnum.ROCCIA]] }
+// const cell : CellConfig =  {occupied: false, terrainMatrix: [[TerrainEnum.TERRA, TerrainEnum.ACQUA_BASSA, TerrainEnum.FORESTA, TerrainEnum.ROCCIA], [TerrainEnum.SABBIA, TerrainEnum.FORESTA, TerrainEnum.TERRA, TerrainEnum.FORESTA], [TerrainEnum.SABBIA, TerrainEnum.ACQUA_BASSA, TerrainEnum.ROCCIA, TerrainEnum.TERRA], [TerrainEnum.SABBIA, TerrainEnum.FORESTA, TerrainEnum.TERRA, TerrainEnum.ROCCIA]] }
 
 function App() {
-    const [count, setCount] = useState(0);
+    // const [count, setCount] = useState(0);
 
     return (
         <div className="App">

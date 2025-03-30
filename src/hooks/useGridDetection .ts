@@ -1,18 +1,12 @@
 // src/hooks/useGridDetection.ts
 import { useEffect, useState } from 'react';
 
-interface GridDetectionResult {
-  cellSize: number | null;
-  offsetX: number;
-  offsetY: number;
-}
 
-export const useGridDetection = (imageSrc: string | null): GridDetectionResult => {
-  const [result, setResult] = useState<GridDetectionResult>({
-    cellSize: null,
-    offsetX: 0,
-    offsetY: 0,
-  });
+
+export const useGridDetection = (imageSrc: string | null)=> {
+  const [cellSize, setCellSize] = useState<number | null>(null);
+  const [offsetX, setOffsetX] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
 
   useEffect(() => {
     if (!imageSrc) return;
@@ -79,10 +73,19 @@ export const useGridDetection = (imageSrc: string | null): GridDetectionResult =
       const cellSize = cellSizeX && cellSizeY ? Math.round((cellSizeX + cellSizeY) / 2) : null;
       const offsetX = verticalEdges[0] || 0;
       const offsetY = horizontalEdges[0] || 0;
+      
 
-      setResult({ cellSize, offsetX, offsetY });
+      setCellSize(cellSize);
+      setOffsetX(offsetX);
+      setOffsetY(offsetY);
     };
   }, [imageSrc]);
 
-  return result;
+  return  {
+    cellSize,
+    offsetX,
+    setOffsetX,
+    offsetY,
+    setOffsetY,
+  };
 };

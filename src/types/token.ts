@@ -1,4 +1,5 @@
 export enum TokenEnum {
+    REMOVE = '❌ Rimuovi pedina',
     GUERRIERO = 'GUERRIERO',
     MAGO = 'MAGO',
     LADRO = 'LADRO',

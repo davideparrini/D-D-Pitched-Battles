@@ -1,8 +1,8 @@
-// src/components/MapControls.tsx
 import React from 'react';
 import { possibleLabels } from '../types/constants';
 import { TokenEnum } from '../types/token';
 import { TerrainEnum } from '../types/terrain';
+import '../css/MapControls.css';
 
 interface MapControlsProps {
   selectedLabel: TerrainEnum;
@@ -17,7 +17,7 @@ interface MapControlsProps {
   onReset: () => void;
   useDetection: boolean;
   setUseDetection: (val: boolean) => void;
-  selectedTokenType: TokenEnum | null;
+  selectedTokenType: TokenEnum |  null;
   setSelectedTokenType: (type: TokenEnum | null) => void;
 }
 
@@ -41,6 +41,8 @@ const MapControls: React.FC<MapControlsProps> = ({
 }) => {
   return (
     <div className="map-controls">
+
+      {/* Etichetta terreno */}
       <div className="label-controls">
         <label>Etichetta attiva:</label>
         <select
@@ -56,25 +58,28 @@ const MapControls: React.FC<MapControlsProps> = ({
         </select>
       </div>
 
+      {/* Tipo di pedina */}
       <div className="label-controls">
         <label>Tipo di pedina (opzionale):</label>
         <select
-          value={selectedTokenType ?? ''}
-          onChange={(e) =>
-            setSelectedTokenType(
-              e.target.value === '' ? null : (e.target.value as TokenEnum)
-            )
-          }
-        >
-          <option value="">-- Nessuna --</option>
-          {Object.values(TokenEnum).map((token) => (
-            <option key={token} value={token}>
-              {token}
-            </option>
-          ))}
-        </select>
+  value={selectedTokenType ?? ''}
+  onChange={(e) =>
+    setSelectedTokenType(
+      e.target.value === '' ? null : (e.target.value as TokenEnum)
+    )
+  }
+>
+  <option value="">-- Nessuna --</option>
+  {Object.values(TokenEnum).map((token) => (
+    <option key={token} value={token}>
+      {token}
+    </option>
+  ))}
+</select>
+
       </div>
 
+      {/* Opzioni visuali */}
       <div className="toggles">
         <label className="toggle-label">
           <input
@@ -120,17 +125,15 @@ const MapControls: React.FC<MapControlsProps> = ({
         </label>
       </div>
 
-      <button className="classify-button" onClick={classifyRemainingCells}>
-        Classifica celle rimanenti
-      </button>
-
-      <button
-        className="classify-button"
-        onClick={onReset}
-        style={{ marginLeft: '0.5rem', backgroundColor: '#ef4444' }}
-      >
-        Reset celle
-      </button>
+      {/* Azioni */}
+      <div className="label-controls  actions-row">
+        <button className="classify-button" onClick={classifyRemainingCells}>
+          Classifica celle rimanenti
+        </button>
+        <button className="classify-button danger" onClick={onReset}>
+          Reset celle
+        </button>
+      </div>
     </div>
   );
 };

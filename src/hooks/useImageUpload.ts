@@ -23,5 +23,5 @@ export const useImageUpload = () => {
     }
   };
 
-  return { image, imageSize, handleImageUpload };
+  return { image, imageSize, handleImageUpload , setImage, setImageSize};
 };

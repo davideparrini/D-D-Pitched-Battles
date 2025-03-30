@@ -9,10 +9,13 @@ interface TokenProps {
   type: TokenEnum;
   draggable?: boolean;
   onDragStart?: (event: React.DragEvent<HTMLDivElement>) => void;
+  isRemoveMode?: boolean;
+  onRemove?: () => void;
 }
 
-const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, onDragStart }) => {
-  const emojiMap: Record<TokenEnum, string> = {
+
+const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, onDragStart, isRemoveMode, onRemove }) => {
+  const emojiMap: Partial<Record<TokenEnum, string>> = {
     [TokenEnum.GUERRIERO]: '🛡️',
     [TokenEnum.MAGO]: '🧙',
     [TokenEnum.LADRO]: '🗡️',
@@ -25,10 +28,17 @@ const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, 
     [TokenEnum.FANTASMA]: '👻',
   };
 
+  const handleClick = () => {
+    if (isRemoveMode && onRemove) {
+      onRemove();
+    }
+  };
+  
   return (
     <div
       draggable={draggable}
       onDragStart={onDragStart}
+      onClick={handleClick}
       style={{
         position: 'absolute',
         top: y * cellSize,
@@ -41,7 +51,8 @@ const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, 
         fontSize: cellSize * 0.6,
         pointerEvents: 'auto',
         userSelect: 'none',
-        cursor: draggable ? 'grab' : 'default',
+        cursor: isRemoveMode ? 'pointer' : draggable ? 'grab' : 'default',
+        boxShadow: isRemoveMode ? '0 0 8px rgba(255, 0, 0, 0.5)' : 'none',
       }}
     >
       {emojiMap[type]}

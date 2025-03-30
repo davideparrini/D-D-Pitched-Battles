@@ -26,6 +26,7 @@ export const useTokenManager = () => {
 
   return {
     tokens,
+    setTokens,
     selectedTokenType,
     setSelectedTokenType,
     placeToken,

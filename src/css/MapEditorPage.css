@@ -1,0 +1,66 @@
+.map-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-end;
+  background: linear-gradient(135deg, #2d2d2d, #1e1e1e);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #444;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.map-tools label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #f1f1f1;
+  min-width: 180px;
+}
+
+.map-tools input[type='text'],
+.map-tools input[type='file'] {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #f8f8f8;
+}
+
+.map-tools input::file-selector-button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.map-tools button {
+  height: 40px;
+  padding: 0 1.2rem;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.map-tools button:hover {
+  background-color: #2563eb;
+}
+
+.map-tools button.danger {
+  background-color: #ef4444;
+}
+
+.map-tools button.danger:hover {
+  background-color: #dc2626;
+}
+

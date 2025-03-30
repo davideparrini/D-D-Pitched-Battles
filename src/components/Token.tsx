@@ -13,8 +13,16 @@ interface TokenProps {
   onRemove?: () => void;
 }
 
-
-const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, onDragStart, isRemoveMode, onRemove }) => {
+const Token: React.FC<TokenProps> = ({
+  x,
+  y,
+  cellSize,
+  type,
+  draggable = false,
+  onDragStart,
+  isRemoveMode,
+  onRemove,
+}) => {
   const emojiMap: Partial<Record<TokenEnum, string>> = {
     [TokenEnum.GUERRIERO]: '🛡️',
     [TokenEnum.MAGO]: '🧙',
@@ -33,7 +41,7 @@ const Token: React.FC<TokenProps> = ({ x, y, cellSize, type, draggable = false, 
       onRemove();
     }
   };
-  
+
   return (
     <div
       draggable={draggable}

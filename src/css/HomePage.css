@@ -1,51 +1,53 @@
 .home-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    background: radial-gradient(circle at center, #1e1e1e, #111);
-    color: #f3f3f3;
-  }
-  
-  .home-container {
-    text-align: center;
-    max-width: 600px;
-    padding: 2rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(4px);
-    border: 1px solid #333;
-  }
-  
-  .home-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #93c5fd;
-  }
-  
-  .home-container p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #d1d5db;
-    margin-bottom: 2rem;
-  }
-  
-  .start-button {
-    display: inline-block;
-    background-color: #3b82f6;
-    color: white;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.6rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  .start-button:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
-    color: #ffffff;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: radial-gradient(circle at center, #1e1e1e, #111);
+  color: #f3f3f3;
+}
+
+.home-container {
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(4px);
+  border: 1px solid #333;
+}
+
+.home-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #93c5fd;
+}
+
+.home-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+}
+
+.start-button {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.start-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+  color: #ffffff;
+}

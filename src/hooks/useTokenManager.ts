@@ -10,14 +10,12 @@ export const useTokenManager = () => {
   const placeToken = (x: number, y: number, type: TokenEnum) => {
     setTokens((prev) => [
       ...prev.filter((t) => t.x !== x || t.y !== y), // sovrascrive se già presente
-      { id: uuidv4(), x, y, type }
+      { id: uuidv4(), x, y, type },
     ]);
   };
 
   const moveToken = (id: string, newX: number, newY: number) => {
-    setTokens((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, x: newX, y: newY } : t))
-    );
+    setTokens((prev) => prev.map((t) => (t.id === id ? { ...t, x: newX, y: newY } : t)));
   };
 
   const removeToken = (id: string) => {

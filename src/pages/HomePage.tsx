@@ -8,7 +8,8 @@ const HomePage: React.FC = () => {
       <div className="home-container">
         <h1>D&D Map</h1>
         <p>
-          Prepara, esplora e personalizza le tue mappe per sessioni di Dungeons & Dragons. Etichetta i terreni, posiziona le pedine e analizza automaticamente la difficoltà delle aree.
+          Prepara, esplora e personalizza le tue mappe per sessioni di Dungeons & Dragons. Etichetta
+          i terreni, posiziona le pedine e analizza automaticamente la difficoltà delle aree.
         </p>
 
         <Link to="/editor" className="start-button">

@@ -6,7 +6,6 @@ import Token from '../components/Token';
 import { useImageUpload } from '../hooks/useImageUpload';
 import { useKnnClassifier } from '../hooks/useKnnClassifier';
 import { initializeFromSeeds } from '../utils/initializeFromSeeds';
-import { useGridDetection } from '../hooks/useGridDetection ';
 import { useMapLabeling } from '../hooks/useMapLabeling';
 import { useTokenManager } from '../hooks/useTokenManager';
 import { exportMapToJson, importMapFromJson } from '../utils/mapSerializer';
@@ -15,28 +14,14 @@ import { LabeledCell } from '../types/map';
 import '../css/MapEditorPage.css';
 
 const MapEditorPage: React.FC = () => {
-  const {
-    image,
-    setImage,
-    imageSize,
-    setImageSize,
-    handleImageUpload,
-  } = useImageUpload();
-  const {
-    cellSize: detectedCellSize,
-    offsetX,
-    setOffsetX,
-    offsetY,
-    setOffsetY,
-  } = useGridDetection(image);
+  const { image, setImage, imageSize, setImageSize, handleImageUpload } = useImageUpload();
 
-  const [manualCellSize, setManualCellSize] = useState<number>(32);
-  const [useDetection, setUseDetection] = useState(true);
+  const [cellSize, setCellSize] = useState<number>(32);
+  const [offsetX, setOffsetX] = useState<number>(0);
+  const [offsetY, setOffsetY] = useState<number>(0);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [draggingTokenId, setDraggingTokenId] = useState<string | null>(null);
   const [mapName, setMapName] = useState('mappa-dnd');
-
-  const cellSize = useDetection && detectedCellSize ? detectedCellSize : manualCellSize;
 
   const {
     labeledCells,
@@ -50,14 +35,8 @@ const MapEditorPage: React.FC = () => {
     handleLabel,
   } = useMapLabeling();
 
-  const {
-    tokens,
-    selectedTokenType,
-    setSelectedTokenType,
-    placeToken,
-    setTokens,
-    moveToken,
-  } = useTokenManager();
+  const { tokens, selectedTokenType, setSelectedTokenType, placeToken, setTokens, moveToken } =
+    useTokenManager();
 
   const classifyRemainingCells = useKnnClassifier({
     labeledCells,
@@ -90,16 +69,15 @@ const MapEditorPage: React.FC = () => {
       setTokens((prev) => prev.filter((t) => t.x !== x || t.y !== y));
       return;
     }
-  
+
     if (selectedTokenType) {
       placeToken(x, y, selectedTokenType);
-      setSelectedTokenType(null); // opzionale, se vuoi deselezionare dopo il click
+      setSelectedTokenType(null);
       return;
     }
-  
+
     handleLabel(x, y, color);
   };
-  
 
   const handleDragStart = (id: string) => {
     setDraggingTokenId(id);
@@ -118,18 +96,19 @@ const MapEditorPage: React.FC = () => {
     setDraggingTokenId(null);
   };
 
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleImageUpload(e);
+  };
+
   const handleImport = async (file: File) => {
     await importMapFromJson(file, {
       setImage,
       setImageSize,
       setLabeledCells,
       setTokens,
-      setCellSize: setManualCellSize,
-      setOffsetX,
-      setOffsetY,
+      setCellSize,
     });
   };
-
 
   return (
     <div
@@ -141,7 +120,7 @@ const MapEditorPage: React.FC = () => {
       <div className="map-tools">
         <label>
           Carica immagine:
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          <input type="file" accept="image/*" onChange={handleUpload} />
         </label>
 
         <label>
@@ -158,12 +137,7 @@ const MapEditorPage: React.FC = () => {
 
         <label>
           Nome mappa:
-          <input
-            type="text"
-            value={mapName}
-            onChange={(e) => setMapName(e.target.value)}
-            placeholder="Nome mappa..."
-          />
+          <input type="text" value={mapName} onChange={(e) => setMapName(e.target.value)} />
         </label>
 
         <button
@@ -182,10 +156,6 @@ const MapEditorPage: React.FC = () => {
         >
           Esporta mappa
         </button>
-
-        <button className="classify-button danger" onClick={handleReset}>
-          Reset
-        </button>
       </div>
 
       {image && imageSize && (
@@ -197,14 +167,16 @@ const MapEditorPage: React.FC = () => {
             setShowDifficulty={setShowDifficulty}
             darkMode={darkMode}
             setDarkMode={setDarkMode}
-            manualCellSize={manualCellSize}
-            setManualCellSize={setManualCellSize}
             classifyRemainingCells={classifyRemainingCells}
             onReset={handleReset}
-            useDetection={useDetection}
-            setUseDetection={setUseDetection}
             selectedTokenType={selectedTokenType}
             setSelectedTokenType={setSelectedTokenType}
+            cellSize={cellSize}
+            setCellSize={setCellSize}
+            offsetX={offsetX}
+            setOffsetX={setOffsetX}
+            offsetY={offsetY}
+            setOffsetY={setOffsetY}
           />
 
           <div
@@ -231,9 +203,7 @@ const MapEditorPage: React.FC = () => {
                 cellSize={cellSize}
                 draggable={selectedTokenType !== TokenEnum.REMOVE}
                 isRemoveMode={selectedTokenType === TokenEnum.REMOVE}
-                onRemove={() =>
-                  setTokens((prev) => prev.filter((t) => t.id !== token.id))
-                }
+                onRemove={() => setTokens((prev) => prev.filter((t) => t.id !== token.id))}
                 onDragStart={() => handleDragStart(token.id)}
               />
             ))}

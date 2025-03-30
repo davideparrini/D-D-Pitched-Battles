@@ -1,3 +1,4 @@
+// src/components/MapControls.tsx
 import React from 'react';
 import { possibleLabels } from '../types/constants';
 import { TokenEnum } from '../types/token';
@@ -11,17 +12,17 @@ interface MapControlsProps {
   setShowDifficulty: (val: boolean) => void;
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
-  manualCellSize: number;
-  setManualCellSize: (val: number) => void;
   classifyRemainingCells: () => void;
   onReset: () => void;
-  useDetection: boolean;
-  setUseDetection: (val: boolean) => void;
-  selectedTokenType: TokenEnum |  null;
+  selectedTokenType: TokenEnum | null;
   setSelectedTokenType: (type: TokenEnum | null) => void;
+  cellSize: number;
+  setCellSize: (size: number) => void;
+  offsetX: number;
+  setOffsetX: (x: number) => void;
+  offsetY: number;
+  setOffsetY: (y: number) => void;
 }
-
-const DEFAULT_CELL_SIZES = [16, 24, 32, 40, 48, 64];
 
 const MapControls: React.FC<MapControlsProps> = ({
   selectedLabel,
@@ -30,19 +31,28 @@ const MapControls: React.FC<MapControlsProps> = ({
   setShowDifficulty,
   darkMode,
   setDarkMode,
-  manualCellSize,
-  setManualCellSize,
   classifyRemainingCells,
   onReset,
-  useDetection,
-  setUseDetection,
   selectedTokenType,
   setSelectedTokenType,
+  cellSize,
+  setCellSize,
+  offsetX,
+  setOffsetX,
+  offsetY,
+  setOffsetY,
 }) => {
+  const handleNumberChange = (setter: (val: number) => void, value: string, fallback: number) => {
+    const regex = /^\d*$/;
+    if (regex.test(value)) {
+      const parsed = parseInt(value, 10);
+      setter(isNaN(parsed) ? fallback : parsed);
+    }
+  };
+
   return (
     <div className="map-controls">
-
-      {/* Etichetta terreno */}
+      <div className="label-controls actions-row upper-wrapper">
       <div className="label-controls">
         <label>Etichetta attiva:</label>
         <select
@@ -58,54 +68,24 @@ const MapControls: React.FC<MapControlsProps> = ({
         </select>
       </div>
 
-      {/* Tipo di pedina */}
       <div className="label-controls">
         <label>Tipo di pedina (opzionale):</label>
         <select
-  value={selectedTokenType ?? ''}
-  onChange={(e) =>
-    setSelectedTokenType(
-      e.target.value === '' ? null : (e.target.value as TokenEnum)
-    )
-  }
->
-  <option value="">-- Nessuna --</option>
-  {Object.values(TokenEnum).map((token) => (
-    <option key={token} value={token}>
-      {token}
-    </option>
-  ))}
-</select>
-
+          value={selectedTokenType ?? ''}
+          onChange={(e) =>
+            setSelectedTokenType(e.target.value === '' ? null : (e.target.value as TokenEnum))
+          }
+        >
+          <option value="">-- Nessuna --</option>
+          {Object.values(TokenEnum).map((token) => (
+            <option key={token} value={token}>
+              {token}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Opzioni visuali */}
       <div className="toggles">
-        <label className="toggle-label">
-          <input
-            type="checkbox"
-            checked={useDetection}
-            onChange={(e) => setUseDetection(e.target.checked)}
-          />
-          Rileva automaticamente la griglia
-        </label>
-
-        {!useDetection && (
-          <div className="cell-size-select">
-            <label>Dimensione celle:</label>
-            <select
-              value={manualCellSize}
-              onChange={(e) => setManualCellSize(parseInt(e.target.value))}
-            >
-              {DEFAULT_CELL_SIZES.map((size) => (
-                <option key={size} value={size}>
-                  {size}px
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
         <label className="toggle-label">
           <input
             type="checkbox"
@@ -125,8 +105,7 @@ const MapControls: React.FC<MapControlsProps> = ({
         </label>
       </div>
 
-      {/* Azioni */}
-      <div className="label-controls  actions-row">
+      <div className="label-controls actions-row">
         <button className="classify-button" onClick={classifyRemainingCells}>
           Classifica celle rimanenti
         </button>
@@ -134,7 +113,34 @@ const MapControls: React.FC<MapControlsProps> = ({
           Reset celle
         </button>
       </div>
+      </div>
+
+      <div className="label-controls actions-row">
+      <label>Dimensione celle:</label>
+        <input
+          type="number"
+          value={cellSize}
+          onChange={(e) => handleNumberChange(setCellSize, e.target.value, 32)}
+          className="cell-input"
+        />
+      <label>Offset X:</label>
+        <input
+          type="number"
+          value={offsetX}
+          onChange={(e) => handleNumberChange(setOffsetX, e.target.value, 0)}
+          className="cell-input"
+        />
+        <label>Offset Y:</label>
+        <input
+          type="number"
+          value={offsetY}
+          onChange={(e) => handleNumberChange(setOffsetY, e.target.value, 0)}
+          className="cell-input"
+        />
+      </div>
+      
     </div>
+    
   );
 };
 

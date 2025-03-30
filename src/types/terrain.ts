@@ -1,4 +1,4 @@
-import { RGBTuple } from "./map";
+import { RGBTuple } from './map';
 
 export enum TerrainEnum {
   NO_TYPE = 'NO_TYPE',
@@ -38,8 +38,6 @@ export const Terrain: TerrainType = {
   [TerrainEnum.FUORI_MAPPA]: -2,
 };
 
-
-
 export const colorSeedHints: Record<TerrainEnum, RGBTuple> = {
   [TerrainEnum.TERRA]: [160, 82, 45],
   [TerrainEnum.FORESTA]: [34, 139, 34],
@@ -55,5 +53,5 @@ export const colorSeedHints: Record<TerrainEnum, RGBTuple> = {
   [TerrainEnum.FANGO]: [139, 69, 19],
   [TerrainEnum.NEVE]: [255, 255, 255],
   [TerrainEnum.FUORI_MAPPA]: [0, 0, 0],
-  [TerrainEnum.NO_TYPE]: [0, 0, 0], 
+  [TerrainEnum.NO_TYPE]: [0, 0, 0],
 };

@@ -12,9 +12,7 @@ const computeVariance = (values: number[]): number => {
   return values.reduce((sum, v) => sum + (v - mean) ** 2, 0) / values.length;
 };
 
-export const extractFeaturesFromImageData = (
-  data: Uint8ClampedArray
-): CellFeatures => {
+export const extractFeaturesFromImageData = (data: Uint8ClampedArray): CellFeatures => {
   const rVals: number[] = [];
   const gVals: number[] = [];
   const bVals: number[] = [];
@@ -32,10 +30,7 @@ export const extractFeaturesFromImageData = (
     Math.floor(bVals.reduce((a, b) => a + b, 0) / pixelCount),
   ];
 
-  const texture =
-    computeVariance(rVals) +
-    computeVariance(gVals) +
-    computeVariance(bVals);
+  const texture = computeVariance(rVals) + computeVariance(gVals) + computeVariance(bVals);
 
   return { avgColor, texture };
 };

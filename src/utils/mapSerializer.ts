@@ -11,8 +11,18 @@ export interface MapData {
   offsetY: number;
   labeledCells: LabeledCell[];
   tokens: TokenType[];
-  createdAt?: string; // ISO string
+  createdAt?: string;
 }
+
+type ImportMapCallbacks = {
+  setImage: (img: string) => void;
+  setImageSize: (size: { width: number; height: number }) => void;
+  setLabeledCells: (cells: LabeledCell[]) => void;
+  setTokens: (tokens: TokenType[]) => void;
+  setCellSize: (size: number) => void;
+  setOffsetX?: (offset: number) => void;
+  setOffsetY?: (offset: number) => void;
+};
 
 // 📤 Esporta la mappa come JSON da scaricare
 export const exportMapToJson = (data: MapData) => {
@@ -24,31 +34,26 @@ export const exportMapToJson = (data: MapData) => {
   a.href = url;
   a.download = `${data.name || 'mappa'}.json`;
   a.click();
+
   URL.revokeObjectURL(url);
 };
 
 // 📥 Importa una mappa da file JSON e aggiorna lo stato
-export const importMapFromJson = async (
-  file: File,
-  callbacks: {
-    setImage: (img: string) => void;
-    setImageSize: (size: { width: number; height: number }) => void;
-    setLabeledCells: (cells: LabeledCell[]) => void;
-    setTokens: (tokens: TokenType[]) => void;
-    setCellSize: (size: number) => void;
-    setOffsetX: (x: number) => void;
-    setOffsetY: (y: number) => void;
-  }
-) => {
+export const importMapFromJson = async (file: File, callbacks: ImportMapCallbacks) => {
   const text = await file.text();
   const data: MapData = JSON.parse(text);
 
   callbacks.setImage(data.image);
-  callbacks.setLabeledCells(data.labeledCells || []);
-  callbacks.setTokens(data.tokens || []);
   callbacks.setCellSize(data.cellSize);
-  callbacks.setOffsetX(data.offsetX);
-  callbacks.setOffsetY(data.offsetY);
+  callbacks.setLabeledCells(data.labeledCells ?? []);
+  callbacks.setTokens(data.tokens ?? []);
+
+  if (callbacks.setOffsetX) {
+    callbacks.setOffsetX(data.offsetX ?? 0);
+  }
+  if (callbacks.setOffsetY) {
+    callbacks.setOffsetY(data.offsetY ?? 0);
+  }
 
   const img = new Image();
   img.src = data.image;

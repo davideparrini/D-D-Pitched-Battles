@@ -4,20 +4,15 @@ import { RGBTuple, LabeledCell, Size } from '../types/map';
 import { colorSeedHints, TerrainEnum } from '../types/terrain.ts';
 import { extractFeaturesFromImageData } from './extractFeatures';
 
-
 const colorDistance = (a: RGBTuple, b: RGBTuple): number => {
-  return Math.sqrt(
-    Math.pow(a[0] - b[0], 2) +
-    Math.pow(a[1] - b[1], 2) +
-    Math.pow(a[2] - b[2], 2)
-  );
+  return Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2) + Math.pow(a[2] - b[2], 2));
 };
 
 export const initializeFromSeeds = async (
   imageSrc: string,
   imageSize: Size,
   cellSize: number,
-  threshold: number = 50
+  threshold: number = 50,
 ): Promise<LabeledCell[]> => {
   return new Promise((resolve) => {
     const image = new Image();
@@ -55,9 +50,7 @@ export const initializeFromSeeds = async (
               TerrainEnum.FUOCO,
             ];
 
-            const isTextured = needsTexture.includes(terrain)
-              ? texture > 1000
-              : true;
+            const isTextured = needsTexture.includes(terrain) ? texture > 1000 : true;
 
             if (dist < threshold && isTextured) {
               initialCells.push({

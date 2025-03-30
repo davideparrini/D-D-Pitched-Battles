@@ -64,3 +64,16 @@
   background-color: #dc2626;
 }
 
+.grid-settings {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.grid-settings label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}

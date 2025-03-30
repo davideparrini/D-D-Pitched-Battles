@@ -37,7 +37,7 @@ const GridOverlay: React.FC<GridOverlayProps> = ({
 
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-
+      // ctx.imageSmoothingEnabled = false;
       canvas.width = image.width;
       canvas.height = image.height;
 

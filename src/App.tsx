@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MapEditorPage from './pages/MapEditorPage';
+import GameSetupPage from './pages/GameSetupPage';
+import GameSessionPage from './pages/GameSessionPage';
 
 const App: React.FC = () => {
   return (
@@ -11,6 +13,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/editor" element={<MapEditorPage />} />
+          <Route path="/setup" element={<GameSetupPage />} />
+          <Route path="/game" element={<GameSessionPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

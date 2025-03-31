@@ -1,6 +1,7 @@
 // src/components/Token.tsx
 import React from 'react';
 import { TokenEnum } from '../types/token';
+import '../css/Token.css';
 
 interface TokenProps {
   x: number;
@@ -8,9 +9,12 @@ interface TokenProps {
   cellSize: number;
   type: TokenEnum;
   draggable?: boolean;
+  label?: string;
+  playerName?: string;
   onDragStart?: (event: React.DragEvent<HTMLDivElement>) => void;
   isRemoveMode?: boolean;
   onRemove?: () => void;
+  onClick?: () => void;
 }
 
 const Token: React.FC<TokenProps> = ({
@@ -19,9 +23,12 @@ const Token: React.FC<TokenProps> = ({
   cellSize,
   type,
   draggable = false,
+  label,
+  playerName,
   onDragStart,
   isRemoveMode,
   onRemove,
+  onClick,
 }) => {
   const emojiMap: Partial<Record<TokenEnum, string>> = {
     [TokenEnum.GUERRIERO]: '🛡️',
@@ -39,31 +46,37 @@ const Token: React.FC<TokenProps> = ({
   const handleClick = () => {
     if (isRemoveMode && onRemove) {
       onRemove();
+    } else if (onClick) {
+      onClick();
     }
   };
 
   return (
     <div
-      draggable={draggable}
-      onDragStart={onDragStart}
-      onClick={handleClick}
+      className="token-wrapper"
       style={{
-        position: 'absolute',
         top: y * cellSize,
         left: x * cellSize,
         width: cellSize,
         height: cellSize,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         fontSize: cellSize * 0.6,
-        pointerEvents: 'auto',
-        userSelect: 'none',
-        cursor: isRemoveMode ? 'pointer' : draggable ? 'grab' : 'default',
-        boxShadow: isRemoveMode ? '0 0 8px rgba(255, 0, 0, 0.5)' : 'none',
       }}
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onClick={handleClick}
     >
-      {emojiMap[type]}
+      <div
+        className={`token-emoji ${isRemoveMode ? 'removable' : ''}`}
+        style={{ cursor: isRemoveMode ? 'pointer' : draggable ? 'grab' : 'default' }}
+      >
+        {emojiMap[type]}
+      </div>
+      {label && (
+        <div className="token-label">
+          <strong>{label}</strong>
+          {playerName && <div className="token-player">({playerName})</div>}
+        </div>
+      )}
     </div>
   );
 };

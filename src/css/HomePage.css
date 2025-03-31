@@ -51,3 +51,18 @@
   box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
   color: #ffffff;
 }
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.start-button.secondary {
+  background-color: #10b981;
+}
+
+.start-button.secondary:hover {
+  background-color: #059669;
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
+}

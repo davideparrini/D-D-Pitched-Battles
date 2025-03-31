@@ -1,3 +1,4 @@
+// src/pages/HomePage.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
@@ -12,9 +13,14 @@ const HomePage: React.FC = () => {
           i terreni, posiziona le pedine e analizza automaticamente la difficoltà delle aree.
         </p>
 
-        <Link to="/editor" className="start-button">
-          🎲 Inizia a creare la tua mappa
-        </Link>
+        <div className="home-buttons">
+          <Link to="/editor" className="start-button">
+            🛠 Crea o modifica una mappa
+          </Link>
+          <Link to="/setup" className="start-button secondary">
+            🎮 Avvia una sessione di gioco
+          </Link>
+        </div>
       </div>
     </div>
   );
